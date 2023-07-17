@@ -7,6 +7,7 @@
   import { DocumentModel } from 'src/app/models/document.model'; 
   import { FileService } from 'src/app/services/file.service';
   import { MatSort } from '@angular/material/sort';
+import Swal from 'sweetalert2';
 
   @Component({
     selector: 'documents',
@@ -189,20 +190,29 @@
       this.service.getNombre(nombre).subscribe((documento: any) => {
         const nombreArchivo = documento[0].nombre;
         const urlArchivo = documento[0].url;
-        console.log('Data Api :',documento);
+        console.log('Data Api:', documento);
         const urlParticionada = urlArchivo.substring(urlArchivo.indexOf("/documentos"));
-        
+    
         const extension = urlArchivo.substring(urlArchivo.lastIndexOf('.') + 1);
         const nombreCompleto = `${nombreArchivo}.${extension}`;
-
+    
         const urlNas = 'http://172.16.1.24:88';
-
+    
         this.http.get(`${urlNas}${urlParticionada}`, { responseType: 'blob' }).subscribe((archivo: any) => {
-          const blob = new Blob([archivo]); 
-          const link = document.createElement('a'); 
-          link.href = window.URL.createObjectURL(blob); 
-          link.download = nombreCompleto; 
+          const blob = new Blob([archivo]);
+          const link = document.createElement('a');
+          link.href = window.URL.createObjectURL(blob);
+          link.download = nombreCompleto;
           link.click();
+        }, (error: any) => {
+          Swal.fire({
+            position: 'center',
+            icon: 'error',
+            title: 'Error extensión CORS',
+            text: 'Ocurrió un error al descargar el archivo, por favor revisa la configuración de la extensión.',
+            showConfirmButton: true,
+            confirmButtonText: 'Entendido'
+          });
         });
       });
     }

@@ -39,6 +39,7 @@ export class FileService {
     // console.log(documento.fecha);
     // console.log(documento.area);
     // console.log(documento.url);
+    
     const fechaISO = new Date(documento.fecha + 'T00:00:00Z').toISOString();
     return this.http.post(`${this.urlLoopback}/comunicados`, {
       // id: documento.id,
