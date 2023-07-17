@@ -175,7 +175,9 @@ export class ManaulesGuiasComponent implements OnInit, AfterViewInit {
       const extension = urlArchivo.substring(urlArchivo.lastIndexOf('.') + 1);
       const nombreCompleto = `${nombreArchivo}.${extension}`;
 
-      this.http.get(`/api${urlParticionada}`, { responseType: 'blob' }).subscribe((archivo: any) => {
+      const urlNas = 'http://172.16.1.24:88';
+
+      this.http.get(`${urlNas}${urlParticionada}`, { responseType: 'blob' }).subscribe((archivo: any) => {
         const blob = new Blob([archivo]); 
         const link = document.createElement('a'); 
         link.href = window.URL.createObjectURL(blob); 

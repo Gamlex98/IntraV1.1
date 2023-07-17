@@ -42,7 +42,10 @@ export class LogosComponent implements OnInit {
     const nombreCompleto = `${this.getLogoNombre(url)}.${extension}`;
     const urlParticionada = url.substring(url.indexOf('/logo'));
 
-    this.http.get(`/api${urlParticionada}`, { responseType: 'blob' }).subscribe((archivo: any) => {
+    const urlNas = 'http://172.16.1.24:88';
+
+
+    this.http.get(`${urlNas}${urlParticionada}`, { responseType: 'blob' }).subscribe((archivo: any) => {
       const blob = new Blob([archivo]);
       const link = document.createElement('a');
       link.href = window.URL.createObjectURL(blob);
