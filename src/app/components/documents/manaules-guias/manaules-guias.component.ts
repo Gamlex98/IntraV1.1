@@ -17,7 +17,7 @@ export class ManaulesGuiasComponent implements OnInit, AfterViewInit {
   @ViewChild(MatSort) sort !: MatSort;
 
   // mostrar_columnas: string[] = ['fecha', 'area', 'nombre', 'url', 'download' ];
-  mostrar_columnas: string[] = ['fecha', 'area', 'nombre', 'download' ];
+  mostrar_columnas: string [] = ['fecha', 'area', 'nombre', 'download' ];
 
   datosAuditoria = new MatTableDataSource<DocumentosAuditoria>(documentosAuditoria);
   datosCalidad = new MatTableDataSource<DocumentosCalidad>(documentosCalidad);
@@ -39,7 +39,7 @@ export class ManaulesGuiasComponent implements OnInit, AfterViewInit {
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
-  constructor(private service: FileService, private http : HttpClient) {}
+  constructor(private service: FileService, private http : HttpClient) { }
 
   ngOnInit() {
     this.tablaSeleccionada = this.datosCalidad;
@@ -147,7 +147,7 @@ export class ManaulesGuiasComponent implements OnInit, AfterViewInit {
     }
   }
   
-  enviarInfo(form: NgForm){
+  enviarInfo (form: NgForm) {
     if(form.valid) {
       const documento: DocumentModel = {
         // id: form.value.id,
@@ -163,7 +163,7 @@ export class ManaulesGuiasComponent implements OnInit, AfterViewInit {
         error:(e)=> console.log("Error en el envio a la BD", e)
       });
     }
-  }
+  }  
   
   downloadFile(url: string, nombre: string): void {
     this.service.getNombreManuales(nombre).subscribe((documento: any) => {
