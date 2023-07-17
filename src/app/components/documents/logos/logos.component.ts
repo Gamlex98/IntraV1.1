@@ -3,6 +3,7 @@ import { Component, ElementRef, OnInit } from '@angular/core';
 import { FileService } from 'src/app/services/file.service';
 import { logoModel } from 'src/app/models/logo.model';
 import { DomSanitizer } from '@angular/platform-browser';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-logos',
@@ -40,10 +41,9 @@ export class LogosComponent implements OnInit {
   downloadFile(url: string): void {
     const extension = url.substring(url.lastIndexOf('.') + 1);
     const nombreCompleto = `${this.getLogoNombre(url)}.${extension}`;
-    const urlParticionada = url.substring(url.indexOf('/logo'));
+    const urlParticionada = url.substring(url.indexOf('/logos'));
 
     const urlNas = 'http://172.16.1.24:88';
-
 
     this.http.get(`${urlNas}${urlParticionada}`, { responseType: 'blob' }).subscribe((archivo: any) => {
       const blob = new Blob([archivo]);
@@ -51,6 +51,15 @@ export class LogosComponent implements OnInit {
       link.href = window.URL.createObjectURL(blob);
       link.download = nombreCompleto;
       link.click();
+    }, (error: any) => {
+      Swal.fire({
+        position: 'center',
+        icon: 'error',
+        title: 'Error extensión CORS',
+        text: 'Ocurrió un error al descargar el archivo, por favor revisa la configuración de la extensión.',
+        showConfirmButton: true,
+        confirmButtonText: 'Entendido'
+      });
     });
   }
 

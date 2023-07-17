@@ -7,6 +7,7 @@ import { DocumentModel } from 'src/app/models/document.model';
 import { FileService } from 'src/app/services/file.service';
 import { MatSort } from '@angular/material/sort';
 import { DocumentosServicios_generales } from '../manaules-guias/manaules-guias.component';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-plantillas',
@@ -186,11 +187,20 @@ export class PlantillasComponent implements OnInit, AfterViewInit {
       const urlNas = 'http://172.16.1.24:88';
 
       this.http.get(`${urlNas}${urlParticionada}`, { responseType: 'blob' }).subscribe((archivo: any) => {
-        const blob = new Blob([archivo]); 
-        const link = document.createElement('a'); 
-        link.href = window.URL.createObjectURL(blob); 
-        link.download = nombreCompleto; 
+        const blob = new Blob([archivo]);
+        const link = document.createElement('a');
+        link.href = window.URL.createObjectURL(blob);
+        link.download = nombreCompleto;
         link.click();
+      }, (error: any) => {
+        Swal.fire({
+          position: 'center',
+          icon: 'error',
+          title: 'Error extensión CORS',
+          text: 'Ocurrió un error al descargar el archivo, por favor revisa la configuración de la extensión.',
+          showConfirmButton: true,
+          confirmButtonText: 'Entendido'
+        });
       });
     });
   }

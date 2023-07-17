@@ -45,6 +45,7 @@
     "tslib": "2.6.0",
     "webdav": "5.2.2",
     "webdav-client": "1.4.3",
+    "webpack-cli": "^5.1.4",
     "zone.js": "~0.13.1"
   },
   "devDependencies": {
