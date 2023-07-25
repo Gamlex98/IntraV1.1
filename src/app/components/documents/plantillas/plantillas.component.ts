@@ -178,7 +178,7 @@ export class PlantillasComponent implements OnInit, AfterViewInit {
     this.service.getNombreFormatos(nombre).subscribe((documento: any) => {
       const nombreArchivo = documento[0].nombre;
       const urlArchivo = documento[0].url;
-      console.log('Data Api :',documento);
+      // console.log('Data Api :',documento);
       const urlParticionada = urlArchivo.substring(urlArchivo.indexOf("/formatos"));
       
       const extension = urlArchivo.substring(urlArchivo.lastIndexOf('.') + 1);

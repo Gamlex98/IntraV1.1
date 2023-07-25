@@ -147,8 +147,8 @@ export class CalendarioComponent implements OnInit {
     const actualDate = new Date();
     this.fechaEvento = new Date(this.fechaSeleccionada);
 
-    console.log('fechaActual:', actualDate);
-    console.log('fechaEvento:', this.fechaEvento);
+    // console.log('fechaActual:', actualDate);
+    // console.log('fechaEvento:', this.fechaEvento);
 
     let allowDeletion = true;
 
